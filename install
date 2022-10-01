@@ -31,6 +31,11 @@ if uname | egrep -qe "Linux"; then
     fi
 elif uname | egrep -qe "MINGW64"; then
     ENV_FILE=$WIN64_ENV
+elif uname | egrep -qe "Darwin"; then
+  if uname -m | egrep -qe "arm64"; then
+    # Mac with Apple silicon
+    ENV_FILE=setup/environment-linux-aarch64.yml
+  fi
 fi
 
 if ${CONDA_EXE} env list | egrep -qe "^hummingbot"; then
